@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main() {
+    int status;
+
+    printf("Hey there! What's the current status of your Zomato order? (Enter 1-4):\n");
+    printf("1: Order Placed\n");
+    printf("2: Preparing Food\n");
+    printf("3: Out for Delivery\n");
+    printf("4: Delivered\n");
+    printf("Your choice: ");
+    scanf("%d", &status);
+
+    switch (status) {
+        case 1:
+            printf("Okay, Order Placed! We've let the restaurant know.\n");
+            break;
+        case 2:
+            printf("Awesome! Your food is being prepared with love and care.\n");
+            break;
+        case 3:
+            printf("Great news! Your order is out for delivery and heading your way.\n");
+            break;
+        case 4:
+            printf("Yay! Your order has been delivered. Enjoy your meal!\n");
+            break;
+        default:
+            printf("Oops! Invalid status. Please enter a number between 1 and 4. Let's try that again!\n");
+            break;
+    }
+
+    printf("Thanks for checking in! Hope you enjoy your meal!\n");
+
+    return 0;
+}

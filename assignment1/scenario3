@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int method, bank;
+    char card[20], upi[50];
+
+    printf("\nLet's pay! How?\n1. Card\n2. UPI\n3. Net Banking\n(1-3): ");
+    scanf("%d", &method);
+
+    switch (method) {
+        case 1:
+            printf("Card number: ");
+            scanf("%19s", card);
+            if (strlen(card) != 16) {
+                printf("Oops! Invalid card number.\n");
+            } else {
+                printf("Processing...\nPayment Successful!\n");
+            }
+            break;
+        case 2:
+            printf("UPI ID: ");
+            scanf("%49s", upi);
+            if (!strchr(upi, '@')) {
+                printf("Hmm, invalid UPI ID.\n");
+            } else {
+                printf("Verifying...\nPayment Successful!\n");
+            }
+            break;
+        case 3:
+            printf("Bank (1-SBI, 2-HDFC): ");
+            scanf("%d", &bank);
+            if (bank != 1 && bank != 2) {
+                printf("Oops! Invalid bank.\n");
+            } else {
+                printf("Connecting...\nPayment Successful!\n");
+            }
+            break;
+        default:
+            printf("Invalid payment option.\n");
+    }
+    printf("Thanks! (We're secure...ish!)\n"); // Wink!
+return 0;
+}

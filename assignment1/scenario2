@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+
+    printf("Alright, let's draw a right-angled triangle!\n");
+    printf("How many rows should it have?  Tell me a number: ");
+    scanf("%d", &n);
+
+    printf("Okay, here we go...\n"); // A little anticipation!
+
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= i; j++) {
+            printf("*"); // Building the row of stars...
+        }
+        printf("\n"); // New row, please!
+    }
+
+    printf("Ta-da!  That's your right-angled triangle.\n");
+    printf("Hope you liked it! :)\n");
+
+return 0;
+}

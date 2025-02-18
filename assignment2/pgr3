@@ -1,0 +1,21 @@
+#include <stdio.h>
+float calculateFinalAmount(float billAmount) {
+    float discount = 0.0;
+
+    if (billAmount >= 500 && billAmount <= 1000) {
+        discount = 0.10; // Apply 10% discount
+    } else if (billAmount > 1000) {
+        discount = 0.20; // Apply 20% discount
+    }
+    return billAmount * (1 - discount);
+}
+int main() {
+    float billAmount; 
+    
+    printf("Enter total bill amount: ₹");
+    scanf("%f", &billAmount); 
+    float finalAmount = calculateFinalAmount(billAmount);
+
+    printf("Final Payable Amount: ₹%.2f\n", finalAmount);
+    return 0; 
+}

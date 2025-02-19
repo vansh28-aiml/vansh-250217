@@ -1,0 +1,36 @@
+#include <stdio.h>
+int mostFrequentElement(int arr[], int n) {
+    int frequency[100] = {0}; 
+    int maxFrequency = 0;                                                                 4
+    int mostFrequent = -1;
+    int i;
+
+    for (i = 0; i < n; i++) {
+        frequency[arr[i]]++;
+        if (frequency[arr[i]] > maxFrequency) {
+            maxFrequency = frequency[arr[i]];
+            mostFrequent = arr[i];
+        } else if (frequency[arr[i]] == maxFrequency && arr[i] < mostFrequent) {
+            mostFrequent = arr[i]; 
+        }
+    }
+    printf(" (occurs %d times)", maxFrequency); 
+    
+    return mostFrequent;
+}
+int main() {
+    int n, i, result;
+    int arr[100];
+
+    printf("Enter array size: ");
+    scanf("%d", &n);
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    result = mostFrequentElement(arr, n);
+    printf("Most Frequent Element: %d", result);
+    printf("\n");
+
+    return 0;
+}

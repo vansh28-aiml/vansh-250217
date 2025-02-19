@@ -1,0 +1,32 @@
+#include <stdio.h>
+#define NUM_MATCHES 5 
+int main() {
+    int scores[NUM_MATCHES]; 
+    int highestScore, lowestScore, sum = 0;
+    float averageScore;
+
+    printf("Enter scores of %d matches: ", NUM_MATCHES);
+
+    for (int i = 0; i < NUM_MATCHES; i++) {
+        scanf("%d", &scores[i]);
+        sum += scores[i]; 
+    }
+
+    highestScore = scores[0];
+    lowestScore = scores[0];
+
+    for (int i = 1; i < NUM_MATCHES; i++) {
+        if (scores[i] > highestScore) {
+            highestScore = scores[i];
+        }
+        if (scores[i] < lowestScore) {
+            lowestScore = scores[i];
+        }
+    }
+    averageScore = (float)sum / NUM_MATCHES;
+
+    printf("Highest Score: %d\n", highestScore);
+    printf("Lowest Score: %d\n", lowestScore);
+    printf("Average Score: %.1f\n", averageScore); 
+    return 0;
+}

@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char dna[1000];  
+    char pattern[100];
+
+    printf("Enter DNA Sequence: ");
+    scanf("%s", dna);
+
+    printf("Enter pattern to search: ");
+    scanf("%s", pattern);
+
+    int count = 0;
+    int dnaLength = strlen(dna);
+    int patternLength = strlen(pattern);
+
+   
+    for (int i = 0; i <= dnaLength - patternLength; i++) {
+        if (strncmp(dna + i, pattern, patternLength) == 0) {
+            count++;
+        }
+    }
+
+    printf("Pattern found %d time(s) in the DNA sequence.\n", count);
+
+    return 0;
+}

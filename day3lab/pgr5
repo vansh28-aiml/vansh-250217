@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+
+int findSubstring(char str[], char sub[]) {
+    char *pos = strstr(str, sub);
+    if (pos) {
+        return pos - str;
+    } else {
+        return -1;
+    }                                                                         
+}
+
+int main() {
+    char str[100];
+    char sub[50];
+    
+    printf("Enter main string: ");
+    scanf("%[^\n]%*c", str);  // Read until newline and discard newline character
+    
+    printf("Enter substring: ");
+    scanf("%[^\n]%*c", sub);  // Read until newline and discard newline character
+    
+    int index = findSubstring(str, sub);
+    
+    if (index != -1) {
+        printf("Substring found at index: %d\n", index);
+    } else {
+        printf("Substring not found\n");
+    }
+    
+    return 0;
+}

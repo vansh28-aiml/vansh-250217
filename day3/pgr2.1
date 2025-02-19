@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct student{
+    char name[255];
+    int marks;
+};
+
+typedef struct student student_t;
+
+void readstudents(student_t*students,int length){
+    for(int i=0;i<length;i++){
+        printf("student %d Name:",i+1);
+        scanf("%s",students[i].name);
+        printf("student marks;");
+        scanf("%d",&students[i].marks);
+    }
+}
+void printstudents(student_t*students,int length){
+    printf("student record:\n");
+    for(int i=0;i<length;i++){
+        printf("%s- %d\n",students[i].name,students[i].marks);
+       
+    }
+}
+int main(){
+   
+    int studentsCount;
+    
+    printf("enter number of students:");
+    scanf("%d",&studentsCount);
+    
+    student_t*students=NULL;
+    students=(student_t*)malloc(sizeof(student_t)*studentsCount);
+    
+    
+    
+    readstudents(students,studentsCount);
+    printstudents(students,studentsCount);
+    
+    free(students);
+    students=NULL;
+    //printf("%s",students[0].name);
+    
+    return 0;
+}

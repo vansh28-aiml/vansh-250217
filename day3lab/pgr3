@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int isPalindrome(char str[]) {                                                
+    int i, j;
+    int len = strlen(str);
+
+    // Remove spaces and convert to lowercase
+    char cleanStr[len + 1];
+    int cleanLen = 0;
+    for (i = 0; i < len; i++) {
+        if (isalnum(str[i])) {
+            cleanStr[cleanLen++] = tolower(str[i]);
+        }
+    }
+    cleanStr[cleanLen] = '\0'; // Null-terminate the cleaned string
+
+    // Check for palindrome
+    for (i = 0, j = cleanLen - 1; i < j; i++, j--) {
+        if (cleanStr[i] != cleanStr[j]) {
+            return 0; // Not a palindrome
+        }
+    }
+    return 1; // Palindrome
+}
+
+int main() {
+    char str[100];
+    
+    // Read input string using scanf
+    printf("Enter a string: ");
+    scanf("%99[^\n]", str); // Read until newline, limit to avoid overflow
+
+    if (isPalindrome(str)) {
+        printf("Yes, it's a palindrome.\n");
+    } else {
+        printf("No, it's not a palindrome.\n");
+    }
+    
+    return 0;
+}

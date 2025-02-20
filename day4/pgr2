@@ -1,0 +1,80 @@
+#include<stdio.h>
+struct Fiction_t {
+     char title[250];
+     char author[125];
+     float price;
+};
+typedef struct Fiction_t Fiction;
+
+struct NonFiction_t {
+     char title[250];
+     char author[500];
+     float price;
+};
+typedef struct NonFiction_t Nonfiction;
+
+union Book_t{
+    Fiction fiction;
+    NonFiction nonFiction;
+};
+
+typedef union BookType_t BookType;
+
+struct Book_t{
+    int type;
+    BookType booktype;
+};
+
+typedef struct Book_t Book;
+
+Books books[1000];
+int bookCount;
+
+void addBooks();
+void displayBooks();
+ int main(){
+     addBooks();
+     displayBooks();
+     return 0;
+ }
+ 
+ void addBooks(){
+     printf("enter nymber of books:");
+     scanf("%d",&bookCount);
+     
+     for(int i=0;i<bookCount;i++){
+         printf("type of book(1-Fiction,2-Non Fiction):");
+         scanf("%d",&books[i].type);
+         
+         switch(books[i].type){
+             case 1:{
+                 printf("enter Fiction Book Details(Title,Author,price):");
+                 scanf("%s%s%f",books[i].booktype.fiction.title,
+                      books[i].booktype.fiction.author,
+                      &books[i].booktype.fiction.price);
+             }break;
+             case 2:{
+                 printf("enter Non Fiction Book Details(Title,Subject,price):");
+                 scanf("%s%s%f",books[i].booktype.nonfiction.title,
+                       books[i].booktype.nonFiction.subject,
+                       &books[i].booktype.nonFiction.price);
+             }break;     
+         }
+     }
+ }
+ void displayBooks(){
+     for(int i=0;i<bookCount;i++){
+         switch(books[i].type){
+             case 1:{
+                 printf("Fiction Book:%s,Author:%s,Price:$%.2f\n",books[i].booktype.fiction.title,
+                 books[i].booktype.fiction.author,
+                 books[i].booktype.fiction.price);
+             }break;
+              case 2:{
+                 printf("Non Fiction Book:%s,Author:%s,Price:$%.2f\n",books[i].booktype.nonfiction.title,
+                 books[i].booktype.nonFiction.subject,
+                 books[i].booktype.nonFiction.price);
+             }break;
+         }
+     }     
+ }

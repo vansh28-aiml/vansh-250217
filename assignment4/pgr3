@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    int empId;
+    char name[50];
+    float basicSalary;
+    float allowances;
+    float grossSalary;
+} Employee;
+
+void calcGrossSalary(Employee *emp) {
+    emp->grossSalary = emp->basicSalary + emp->allowances;
+}
+
+void savePayroll(Employee *emps, int count) {
+    FILE *file = fopen("payroll.txt", "w");
+    if (!file) { printf("File error.\n"); return; }
+    for (int i = 0; i < count; i++)
+        fprintf(file, "%d,%s,%.2f,%.2f,%.2f\n", 
+                emps[i].empId, emps[i].name, emps[i].basicSalary,
+                emps[i].allowances, emps[i].grossSalary);
+    fclose(file);
+    printf("Saved to payroll.txt\n");
+}
+
+void retrieveSalary(Employee *emps, int count, int id) {
+    for (int i = 0; i < count; i++) {
+        if (emps[i].empId == id) {
+            printf("Employee: %s\n", emps[i].name);
+            printf("Gross Salary: ₹%.2f\n", emps[i].grossSalary);
+            return;
+        }
+    }
+    printf("Employee not found.\n");
+}
+
+int main() {
+    int n;
+    printf("Num employees: ");
+    scanf("%d", &n);
+    Employee emps[n];
+    for (int i = 0; i < n; i++) {
+        printf("Emp %d (ID,Name,Basic,Allow): ", i + 1);
+        scanf("%d,%49[^,],%f,%f", &emps[i].empId, emps[i].name, 
+              &emps[i].basicSalary, &emps[i].allowances);
+        calcGrossSalary(&emps[i]);
+    }
+    savePayroll(emps, n);
+    int id;
+    printf("Emp ID to search: ");
+    scanf("%d", &id);
+    retrieveSalary(emps, n, id);
+    return 0;
+}

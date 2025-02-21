@@ -1,0 +1,93 @@
+#include <stdio.h>
+typedef struct {
+    int rollNo;          // Student Roll Number
+    char name[50];       // Student Name
+    int maths, physics, chemistry, cs; // Subject Marks
+    int totalMarks;      // Sum of all subjects
+    float percentage;    // Percentage calculation
+    char grade;          // Assigned grade (A, B, C, D, F)
+} Student;
+void readStudents(Student students[], int n);
+void displayStudents(Student students[], int n);
+void calculateResults(Student students[], int n);
+char Grade(float percentage);
+void manageStudents();
+
+int main() {
+    int studentCount;
+    printf("Enter number of students: ");
+    scanf("%d", &studentCount);
+    Student students[1000];
+    readStudents(students, studentCount);
+    calculateResults(students, studentCount);
+    displayStudents(students, studentCount);
+    manageStudents(students,studentCount);
+    return 0;
+}
+void readStudents(Student students[], int n) {
+    printf("Enter details (RollNo, Name, Maths, Physics, Chemistry, CS):\n");
+    for(int i = 0; i < n; i++) {
+        scanf("%d %s %d %d %d %d", &students[i].rollNo, students[i].name, 
+              &students[i].maths, &students[i].physics, 
+              &students[i].chemistry, &students[i].cs);
+    }
+}
+void calculateResults(Student students[], int n) {
+    for(int i = 0; i < n; i++) {
+        students[i].totalMarks = students[i].maths + students[i].physics + 
+                                  students[i].chemistry + students[i].cs;
+        students[i].percentage = (float)students[i].totalMarks / 4.0;
+        students[i].grade = Grade(students[i].percentage);
+    }
+}
+char Grade(float percentage) {
+    if (percentage >= 90) 
+    return 'A';
+    else if (percentage >= 80) 
+    return 'B';
+    else if (percentage >= 70) 
+    return 'C';
+    else if (percentage >= 60)
+    return 'D';
+    else
+    return 'F';
+}
+void displayStudents(Student students[], int n) {
+   printf(" Roll No|Name | Maths|Physics|Chem| CS | Total | %%  | Grade |\n");
+    for(int i = 0; i < n; i++) {
+        printf("| %-7d | %-15s | %-5d | %-6d | %-5d | %-4d | %-5d | %.2f | %c    |\n",
+               students[i].rollNo, students[i].name, 
+               students[i].maths, students[i].physics, 
+               students[i].chemistry, students[i].cs, 
+               students[i].totalMarks, students[i].percentage, 
+               students[i].grade);
+    }
+}
+void manageStudents(){
+     int studentCount;
+     Student students[1000];
+     int choice;
+     do{
+         printf("choice:\n");
+         printf("1.read students:\n");
+         printf("2.display students:\n");
+         printf("91-exit:\n");
+         printf("your choice:");
+         scanf("%d",&choice);
+         switch(choice){
+             case 1:{
+                 printf("enter number of students:");
+                 scanf("%d",&studentCount);
+                 readStudents(students,studentCount);
+             }break;
+             case 2:{
+                 displayStudents(students,studentCount);
+             }break;
+             case 3:{
+                 printf("thank you for using app....\n");
+             }break;
+         }     
+             
+    } while(choice!=91)   ;     
+         
+}

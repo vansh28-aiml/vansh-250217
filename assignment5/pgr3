@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define SONG_NAME_LENGTH 50
+
+typedef struct Song {
+    char name[SONG_NAME_LENGTH];
+    struct Song* next;
+} Song;
+
+Song* createSong(const char* songName) {
+    Song* newSong = malloc(sizeof(Song));
+    strcpy(newSong->name, songName);
+    newSong->next = NULL;
+    return newSong;
+}
+
+void addSong(Song** head, const char* songName) {
+    Song* newSong = createSong(songName);
+    if (*head == NULL) {
+        *head = newSong;
+        newSong->next = newSong;
+    } else {
+        Song* temp = *head;
+        while (temp->next != *head)
+            temp = temp->next;
+        temp->next = newSong;
+        newSong->next = *head;
+    }
+    printf("Added: %s\n", songName);
+}
+
+Song* nextSong(Song* current) {
+    return current ? current->next : NULL;
+}
+
+void displayCurrentSong(Song* current) {
+    printf("Current: %s\n", current ? current->name : "None");
+}
+
+int main() {
+    Song* playlist = NULL, *currentSong = NULL;
+    addSong(&playlist, "Song A");
+    addSong(&playlist, "Song B");
+    addSong(&playlist, "Song C");
+    currentSong = playlist;
+
+    char command[10];
+    while (1) {
+        displayCurrentSong(currentSong);
+        printf("Cmd (next/exit): ");
+        scanf("%s", command);
+        if (strcmp(command, "next") == 0) {
+            currentSong = nextSong(currentSong);
+            printf("Next\n");
+        } else if (strcmp(command, "exit") == 0) {
+            printf("Bye!\n");
+            break;
+        } else
+            printf("Invalid\n");
+    }
+    return 0;
+}

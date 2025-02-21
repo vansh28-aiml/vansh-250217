@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_HISTORY 100
+#define URL_LENGTH 256
+
+typedef struct {
+    char urls[MAX_HISTORY][URL_LENGTH];
+    int top;
+} Stack;
+
+void initStack(Stack *s) { s->top = -1; }
+int isEmpty(Stack *s) { return s->top == -1; }
+void push(Stack *s, const char *url) { if (s->top < MAX_HISTORY - 1) strcpy(s->urls[++(s->top)], url); }
+char* pop(Stack *s) { return isEmpty(s) ? NULL : s->urls[(s->top)--]; }
+
+int main() {
+    Stack backStack, forwardStack;
+    initStack(&backStack);
+    initStack(&forwardStack);
+
+    char currentURL[URL_LENGTH] = "";
+    char command[10], url[URL_LENGTH];
+
+    while (1) {
+        printf("\nCurrent Page: %s\n", strlen(currentURL) > 0 ? currentURL : "None");
+        printf("Enter command (visit <url>, back, forward, exit): ");
+        scanf("%s", command);
+
+        if (strcmp(command, "visit") == 0) {
+            scanf("%s", url);
+            if (strlen(currentURL) > 0) push(&backStack, currentURL);
+            strcpy(currentURL, url);
+            initStack(&forwardStack); // Clear forward history
+            printf("Visited: %s\n", currentURL);
+        } else if (strcmp(command, "back") == 0) {
+            if (!isEmpty(&backStack)) {
+                push(&forwardStack, currentURL);
+                strcpy(currentURL, pop(&backStack));
+                printf("Going back to: %s\n", currentURL);
+            } else printf("No more pages to go back to.\n");
+        } else if (strcmp(command, "forward") == 0) {
+            if (!isEmpty(&forwardStack)) {
+                push(&backStack, currentURL);
+                strcpy(currentURL, pop(&forwardStack));
+                printf("Going forward to: %s\n", currentURL);
+            } else printf("No more pages to go forward to.\n");
+        } else if (strcmp(command, "exit") == 0) break;
+        else printf("Invalid command.\n");
+    }
+    return 0;
+}

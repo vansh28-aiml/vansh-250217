@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    int rollNo;
+    char name[50];
+    int marks;
+} Student;
+
+int compare(const void *a, const void *b) {
+    return ((Student*)b)->marks - ((Student*)a)->marks;
+}
+
+int binarySearch(Student arr[], int l, int r, int x) {
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (arr[m].rollNo == x) return m;
+        if (arr[m].rollNo < x) l = m + 1;
+        else r = m - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int n, i, roll;
+
+    printf("Enter number of students: ");
+    scanf("%d", &n);
+
+    Student students[n];
+    for (i = 0; i < n; i++) {
+        printf("Enter Roll No, Name, Marks: ");
+        scanf("%d %s %d", &students[i].rollNo, students[i].name, &students[i].marks);
+    }
+
+    qsort(students, n, sizeof(Student), compare);
+
+    printf("\nSorted by Marks:\n");
+    for (i = 0; i < n; i++) 
+        printf("%s (%d)\n", students[i].name, students[i].marks);
+
+    printf("\nTop 3 Students:\n");
+    for (i = 0; i < 3 && i < n; i++) 
+        printf("%s (%d)\n", students[i].name, students[i].marks);
+
+    printf("\nEnter roll number to search: ");
+    scanf("%d", &roll);
+
+    int index = binarySearch(students, 0, n - 1, roll);
+    if (index != -1) 
+        printf("Found: %s (Marks: %d)\n", students[index].name, students[index].marks);
+    else 
+        printf("Not found\n");
+
+    return 0;
+}
